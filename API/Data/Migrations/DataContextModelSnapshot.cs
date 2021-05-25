@@ -35,6 +35,26 @@ namespace API.Data.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("API.Entities.post", b =>
+                {
+                    b.Property<int>("postId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Titre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("postId");
+
+                    b.ToTable("Posts");
+                });
 #pragma warning restore 612, 618
         }
     }
