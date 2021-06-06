@@ -1,0 +1,98 @@
+[
+    {
+        "UserName": "Mouna",
+        "Gender": "female",
+        "DateOfBirth": "1998-07-22",
+        "KnownAs": "Mouna Ettalbi",
+        "Created": "2020-06-24",
+        "LastActive": "2020-06-21",
+        "School": "EnsaT",
+        "Degree": "CP1",
+       "Speciality": "Informatique",
+        "City": "Casablanca",
+        "Country": "Morocco",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/women/54.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Amal",
+        "Gender": "female",
+        "DateOfBirth": "1995-10-12",
+        "KnownAs": "Karen",
+        "Created": "2019-12-09",
+        "LastActive": "2020-05-06",
+        "School":"Ensat",
+        "Degree": "Master",
+        "Speciality": "Bisd",
+        "City": "Rabat",
+        "Country": "Morocco",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Nouha",
+        "Gender": "female",
+        "DateOfBirth": "1996-01-24",
+        "KnownAs": "Margo",
+        "Created": "2019-08-10",
+        "LastActive": "2020-05-12",
+        "School": "Ensat",
+        "Degree": "Master",
+        "Speciality": "CSC",
+        "City": "Marrakech",
+        "Country": "Morocco",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/women/14.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    
+    {
+        "UserName": "Ahmed",
+        "Gender": "male",
+        "DateOfBirth": "1996-12-01",
+        "KnownAs": "Skinner",
+        "Created": "2019-01-28",
+        "LastActive": "2020-06-07",
+        "School": "Ensat",
+        "Degree": "CP1",
+        "Speciality": "Industrie",
+        "City": "Tanger",
+        "Country": "Morocco",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/11.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Fouad",
+        "Gender": "male",
+        "DateOfBirth": "2000-03-20",
+        "KnownAs": "Davis",
+        "Created": "2020-02-25",
+        "LastActive": "2020-06-11",
+        "School": "Ensat",
+        "Degree": "AP1",
+        "Speciality": "AP",
+        "City": "Rabat",
+        "Country": "Morocco",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/93.jpg",
+                "IsMain": true
+            }
+        ]
+    }
+]
