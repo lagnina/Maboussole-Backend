@@ -31,7 +31,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestionnaireQuestions(int id)
         {
-            IEnumerable<Question> questions =   _context.Questions.Where(p => p.questionnaireId == id);
+            IEnumerable<Question> questions = _context.Questions.Where(p => p.questionnaireId == id);
             return  Ok(questions);
         }
         [Authorize]

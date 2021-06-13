@@ -21,7 +21,9 @@ namespace API.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
-        public object Questionnaires { get; internal set; }
+        public DbSet<Questionnaire> Questionnaires { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Result> Results { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -69,6 +71,18 @@ namespace API.Data
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+
+        //    builder.Entity<Question>()
+        //        .HasOne(e => e.questionnaire)
+        //        .WithMany(c => c.questions);
+        //    builder.Entity<Result>()
+        //.HasKey(c => new { c.userId, c.questionnaireId});
+        //    builder.Entity<Result>()
+        //        .HasOne(e => e.questionnaire)
+        //        .WithMany(c => c.results);
+        //    builder.Entity<Result>()
+        //        .HasOne(e => e.userId)
+        //        .WithMany(c => c.results);
 
             builder.ApplyUtcDateTimeConverter();
         }
