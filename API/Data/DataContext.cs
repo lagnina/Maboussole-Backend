@@ -18,6 +18,7 @@ namespace API.Data
         }
 
         public DbSet<UserLike> Likes { get; set; }
+        public DbSet<Post> Posts {get;set;}
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
@@ -72,14 +73,14 @@ namespace API.Data
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
 
-        //    builder.Entity<Question>()
-        //        .HasOne(e => e.questionnaire)
-        //        .WithMany(c => c.questions);
-        //    builder.Entity<Result>()
-        //.HasKey(c => new { c.userId, c.questionnaireId});
-        //    builder.Entity<Result>()
-        //        .HasOne(e => e.questionnaire)
-        //        .WithMany(c => c.results);
+           builder.Entity<Question>()
+               .HasOne(e => e.questionnaire)
+               .WithMany(c => c.questions);
+           builder.Entity<Result>()
+        .HasKey(c => new { c.userId, c.questionnaireId});
+           builder.Entity<Result>()
+               .HasOne(e => e.questionnaire)
+               .WithMany(c => c.results);
         //    builder.Entity<Result>()
         //        .HasOne(e => e.userId)
         //        .WithMany(c => c.results);

@@ -3,18 +3,19 @@ using System;
 using System.ComponentModel.DataAnnotations;
 namespace API.Entities
 {
-    public class post
+    public class Post
     {
         public int postId { get; set; }
 
         [Required]
-        public string Titre { get; set; }
+
         public DateTime DateCreated { get; set; }
         public string Content { get; set; }
-    
-    
-    
-    
-    
+        public long PosterId { get; set; }
+
+
+
+
+
     }
 }

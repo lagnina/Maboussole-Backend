@@ -248,6 +248,26 @@ namespace API.Data.Migrations
                     b.ToTable("Photos");
                 });
 
+            modelBuilder.Entity("API.Entities.Post", b =>
+                {
+                    b.Property<int>("postId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("PosterId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("postId");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("API.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -267,7 +287,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("questionnaireId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("API.Entities.Questionnaire", b =>
@@ -284,33 +304,33 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questionnaire");
+                    b.ToTable("Questionnaires");
                 });
 
             modelBuilder.Entity("API.Entities.Result", b =>
                 {
-                    b.Property<string>("domaine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("KnownAsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("note")
+                    b.Property<int>("userId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("questionnaireId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("userId")
+                    b.Property<int?>("KnownAsId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("domaine");
+                    b.Property<string>("domaine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("note")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("userId", "questionnaireId");
 
                     b.HasIndex("KnownAsId");
 
                     b.HasIndex("questionnaireId");
 
-                    b.ToTable("Result");
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("API.Entities.UserLike", b =>
