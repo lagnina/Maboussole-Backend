@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace API.Helpers
 {
-    public class PostParams : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+    public class PostParams : PaginationParams
+    { 
+        
+
+
+
+}
 }

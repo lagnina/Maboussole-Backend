@@ -1,6 +1,11 @@
+using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -18,6 +23,17 @@ namespace API.Data
         {
 
             _context.Posts.Add(post);
+        }
+         public async Task<PagedList<PostDto>> GetPosts(PostParams postParams)
+        {
+            var query = _context.Posts.AsQueryable();
+
+           
+            
+            
+            return await PagedList<PostDto>.CreateAsync(query.ProjectTo<PostDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(), 
+                    postParams.PageNumber, postParams.PageSize);
         }
     }
 }

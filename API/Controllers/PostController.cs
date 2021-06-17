@@ -10,7 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
+using API.Helpers;
+using API.Extensions;
 
 namespace API.Controllers
 { 
@@ -46,6 +47,18 @@ namespace API.Controllers
 
             if (await _unitOfWork.Complete()) return Ok(post);
             return BadRequest("Problem Posting the Post");
+        }
+
+         [HttpGet("Posts")]
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetPosts([FromQuery] PostParams postParams)
+        {
+            var posts = await _unitOfWork.PostRepository.GetPosts(postParams);
+           
+
+            Response.AddPaginationHeader(posts.CurrentPage, posts.PageSize,
+                posts.TotalCount, posts.TotalPages);
+
+            return Ok(posts);
         }
     }
 }
