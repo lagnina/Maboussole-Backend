@@ -1,28 +1,44 @@
-// using API.Interfaces;
+using System.Threading.Tasks;
+using API.Entities;
+using API.Extensions;
+using API.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
-// namespace API.Controllers
-// {
-//     public class PostLikeController :BaseApiController
-//     {
-//          private readonly IUnitOfWork _unitOfWork;
+namespace API.Controllers
+{
+    public class PostLikeController :BaseApiController
+    {
+         private readonly IUnitOfWork _unitOfWork;
 
-//          public PostLikeController(IUnitOfWork unitOfWork){
+         public PostLikeController(IUnitOfWork unitOfWork){
 
-//              _unitOfWork = unitOfWork;
+             _unitOfWork = unitOfWork;
              
-//          }
+         }
 
-// //          [HttpGet]
+         [HttpPost("like-post/{postId}")]
 
-// //          public async Task<ActionResult> AddLike(string postId)
-// // {
+         public  ActionResult AddLike(int postId)
+{
 
-// //         var sourcePostId= UsersController.GetPostId();
-// //         var LikedPosts =await _unitOfWork.UserRepository.GetMyPost( )
-// // }        
+        var sourceUserId = User.GetUserId();
+        
+        var postLike = new PostLike{
+
+            SourceUserId = sourceUserId,
+            LikedPostId = postId
+        };
+
+
+          var result  =   _unitOfWork.PostLikeRepository.Like(postLike);
+
+          if(result) return Ok();
+
+          return Unauthorized();  
+          }        
          
-//          )
+         
 
         
-//     }
-// }
+    }
+}

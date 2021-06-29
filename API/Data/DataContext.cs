@@ -26,6 +26,8 @@ namespace API.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Result> Results { get; set; }
 
+        public DbSet<PostLike> PostLikes  { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

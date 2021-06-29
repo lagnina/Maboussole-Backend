@@ -22,6 +22,8 @@ namespace API.Data
 
         public IPostRepository PostRepository => new PostRepository(_context,_mapper);
 
+        public IPostLikeRepository PostLikeRepository => new PostLikeRepository(_context,_mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
