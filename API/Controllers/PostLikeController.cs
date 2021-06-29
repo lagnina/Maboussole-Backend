@@ -30,11 +30,11 @@ namespace API.Controllers
         };
 
 
-          var result  =   _unitOfWork.PostLikeRepository.Like(postLike);
+          var result  =   _unitOfWork.PostLikeRepository.Like(postLike).Result;
 
-          if(result) return Ok();
+          if(result) return Ok("post Liked");
 
-          return Unauthorized();  
+          return Ok("post unliked");  
           }        
          
          

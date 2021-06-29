@@ -9,7 +9,7 @@ namespace API.Interfaces
 
         Task<IEnumerable<PostLike>> GetPostLikes (int postId);
 
-        bool Like(PostLike postLike);
+        Task<bool> Like(PostLike postLike);
 
 
     }
