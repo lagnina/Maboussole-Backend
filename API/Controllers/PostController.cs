@@ -60,5 +60,36 @@ namespace API.Controllers
 
             return Ok(posts);
         }
+
+        [HttpDelete("delete-post/{postId}")]
+
+    public async Task<ActionResult<IEnumerable<PostDto>>> DeletePost(int postId)
+
+    {
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        var post = await _unitOfWork.PostRepository.GetMyPost(postId,user.Id);
+        
+        if (post == null) return NotFound();
+        _unitOfWork.PostRepository.DeletePost(post);
+        if (await _unitOfWork.Complete()) return Ok();
+            return BadRequest("Problem deleting the post");
+
+    }
+
+    public async Task<ActionResult<IEnumerable<Post>>> UpdatePost(int postId)
+
+    {
+         var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        var post = await _unitOfWork.PostRepository.GetMyPost(postId,user.Id);
+        
+      //  _mapper.Map(post);
+
+        if (post == null) return NotFound();
+        _unitOfWork.PostRepository.UpdatePost(post);
+        if (await _unitOfWork.Complete()) return NoContent();
+            return BadRequest("Problem Updating the post");
+    }
     }
 }

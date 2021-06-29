@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -22,7 +23,8 @@ namespace API.Data
         public void PostCreate(Post post)
         {
 
-            _context.Posts.Add(post);
+          _context.Posts.Add(post);
+            
         }
          public async Task<PagedList<PostDto>> GetPosts(PostParams postParams)
         {
@@ -35,5 +37,25 @@ namespace API.Data
                 .ConfigurationProvider).AsNoTracking(), 
                     postParams.PageNumber, postParams.PageSize);
         }
+        public async Task<Post> GetPost(int postId){
+
+           return await _context.Posts.Where(p =>p.postId == postId).SingleOrDefaultAsync();
+        }
+        public async Task<Post> GetMyPost(int postId,int PosterId){
+
+           return await _context.Posts.Where(p =>p.PosterId == PosterId && p.postId ==postId).SingleOrDefaultAsync();
+        }
+        public void DeletePost( Post post)
+        {
+            _context.Posts.Remove(post);
+        }
+
+        public void UpdatePost( Post post)
+        {
+            _context.Posts.Update(post);
+
+        }
+
+
     }
 }

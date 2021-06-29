@@ -17,7 +17,7 @@ namespace API.Data
         {
         }
 
-        public DbSet<UserLike> Likes { get; set; }
+        // public DbSet<UserLike> Likes { get; set; }
         public DbSet<Post> Posts {get;set;}
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -48,20 +48,19 @@ namespace API.Data
                 .IsRequired();
 
 
-            builder.Entity<UserLike>()
-                .HasKey(k => new { k.SourceUserId, k.LikedUserId });
+            builder.Entity<PostLike>()
+                    .HasKey(keyExpression=> new { keyExpression.SourceUserId,keyExpression.LikedPostId});
+            builder.Entity<PostLike>()
+                    .HasOne(s =>s.SourceUser)
+                    .WithMany(l =>l.LikedPosts)
+                    .HasForeignKey(s =>s.SourceUserId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<UserLike>()
-                .HasOne(s => s.SourceUser)
-                .WithMany(l => l.LikedUsers)
-                .HasForeignKey(s => s.SourceUserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<UserLike>()
-                .HasOne(s => s.LikedUser)
-                .WithMany(l => l.LikedByUsers)
-                .HasForeignKey(s => s.LikedUserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<PostLike>()
+                    .HasOne(s =>s.LikedPost)
+                    .WithMany(l => l.Postlikes)
+                    .HasForeignKey(s => s.LikedPostId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)

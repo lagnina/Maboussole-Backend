@@ -12,6 +12,14 @@ namespace API.Interfaces
     {
 
         void PostCreate(Post post);
+        void DeletePost(Post post);
+
+        void UpdatePost(Post post);
+
+        Task<Post> GetPost( int postId);
+
+        Task<Post> GetMyPost( int postId,int PosterId);
+
         Task<PagedList<PostDto>> GetPosts(PostParams postParams);
     }
 }
