@@ -9,12 +9,13 @@ namespace API.DTOs
     {
 
         public int postId { get; set; }
+        public string Title { get; set; }
 
         [Required]
-
         public DateTime DateCreated { get; set; }
         public string Content { get; set; }
         public long PosterId { get; set; }
+        public string Type { get; set; }
 
         public string speciality { get; set; }
 

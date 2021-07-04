@@ -28,11 +28,8 @@ namespace API.Data
         }
          public async Task<PagedList<PostDto>> GetPosts(PostParams postParams)
         {
-            var query = _context.Posts.AsQueryable();
+            var query = _context.Posts.Where(p=> p.Type == postParams.Type).AsQueryable();
 
-           
-            
-            
             return await PagedList<PostDto>.CreateAsync(query.ProjectTo<PostDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(), 
                     postParams.PageNumber, postParams.PageSize);

@@ -9,8 +9,8 @@ namespace API.Helpers
     public class PostParams : PaginationParams
     { 
         
+        public string Type { get; set; }
 
 
-
-}
+    }
 }
