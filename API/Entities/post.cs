@@ -14,6 +14,7 @@ namespace API.Entities
         public string Content { get; set; }
         public long PosterId { get; set; }
 
+        public string speciality { get; set; }
         public int Likes { get; set; }
 
         public ICollection<PostLike> Postlikes;

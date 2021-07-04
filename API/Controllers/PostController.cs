@@ -35,9 +35,10 @@ namespace API.Controllers
             Post post = new Post
             {
 
-                Content = postDto.content,
+                Content = postDto.Content,
                 PosterId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now,
+                speciality = postDto.speciality
                 
 
 
