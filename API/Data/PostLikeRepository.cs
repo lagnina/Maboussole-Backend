@@ -23,15 +23,17 @@ namespace API.Data
             return await _context.PostLikes.Where(Pl => Pl.LikedPostId == postId ).ToArrayAsync();
         }
 
-        public bool Like(PostLike postLike)
+        public async Task<bool> Like(PostLike postLike)
         {
-           var existingPostLike = _context.PostLikes.Where(pl => pl.LikedPostId == postLike.LikedPostId && pl.SourceUserId == postLike.SourceUserId).FirstOrDefaultAsync();
+           var existingPostLike = await _context.PostLikes.Where(pl => pl.LikedPostId == postLike.LikedPostId && pl.SourceUserId == postLike.SourceUserId).FirstOrDefaultAsync();
             if(existingPostLike == null){
                 _context.PostLikes.Add(postLike);
+                _context.SaveChanges();
                 return true;
             }
+            _context.PostLikes.Remove(existingPostLike);
+            _context.SaveChanges();
             return false;
-           
         }
     }
 }
