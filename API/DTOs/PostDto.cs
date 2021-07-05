@@ -20,6 +20,7 @@ namespace API.DTOs
         public string speciality { get; set; }
 
         public int Likes { get; set; }
+        public bool isLiked { get; set; }
 
         public ICollection<PostLike> Postlikes;
 

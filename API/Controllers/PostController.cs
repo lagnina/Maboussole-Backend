@@ -54,7 +54,22 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<PostDto>>> GetPosts([FromQuery] PostParams postParams)
         {
             var posts = await _unitOfWork.PostRepository.GetPosts(postParams);
-           
+           foreach(PostDto post in posts)
+            {
+                if(post.Postlikes != null)
+                {
+                    if (post.Postlikes.Where(p => p.SourceUser.Id == long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Count() > 0)
+                    {
+                        post.isLiked = true;
+                    }
+                    post.isLiked = false;
+                }
+                else
+                {
+                    post.isLiked = false;
+                }
+               
+            }
 
             Response.AddPaginationHeader(posts.CurrentPage, posts.PageSize,
                 posts.TotalCount, posts.TotalPages);
