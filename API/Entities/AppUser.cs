@@ -22,7 +22,7 @@ namespace API.Entities
 
         
         public ICollection<PostLike> LikedPosts { get; set; }
-
+        public ICollection<Post> PostedPosts { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }

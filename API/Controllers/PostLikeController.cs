@@ -32,9 +32,9 @@ namespace API.Controllers
 
           var result  =   _unitOfWork.PostLikeRepository.Like(postLike).Result;
 
-          if(result) return Ok("post Liked");
+         
 
-          return Ok("post unliked");  
+          return Ok();  
           }        
          
          

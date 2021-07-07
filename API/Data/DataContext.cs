@@ -63,6 +63,17 @@ namespace API.Data
                     .WithMany(l => l.Postlikes)
                     .HasForeignKey(s => s.LikedPostId)
                     .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Post>()
+                .HasOne(s=>s.Poster)
+                .WithMany(s=>s.PostedPosts)
+                .HasForeignKey(s=>s.PosterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+//    builder.Entity<Post>()
+//                 .HasOne(s=>s.Photos)
+//                 .WithMany(s=>s.)
+//                 .HasForeignKey(s=>s.PosterId)
+//                     .OnDelete(DeleteBehavior.Cascade);
+                  
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)
