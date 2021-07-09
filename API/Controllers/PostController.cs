@@ -36,12 +36,9 @@ namespace API.Controllers
             {
 
                 Content = postDto.Content,
-                PosterId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 DateCreated = DateTime.Now,
                 speciality = postDto.speciality
-                
-
-
             };
 
             this._unitOfWork.PostRepository.PostCreate(post);
@@ -58,11 +55,15 @@ namespace API.Controllers
             {
                 if(post.Postlikes != null)
                 {
-                    if (post.Postlikes.Where(p => p.SourceUser.Id == long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Count() > 0)
+                    if (post.Postlikes.Where(p => p.SourceUserId == long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Count() > 0)
                     {
                         post.isLiked = true;
                     }
-                    post.isLiked = false;
+                    else
+                    {
+                        post.isLiked = false;
+                    }
+                   
                 }
                 else
                 {

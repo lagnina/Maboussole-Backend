@@ -27,6 +27,7 @@ namespace API.Data
         public DbSet<Result> Results { get; set; }
 
         public DbSet<PostLike> PostLikes  { get; set; }
+        public DbSet<PostComment> PostComments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -63,6 +64,30 @@ namespace API.Data
                     .WithMany(l => l.Postlikes)
                     .HasForeignKey(s => s.LikedPostId)
                     .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<PostComment>()
+                    .HasKey(keyExpression => new { keyExpression.SourceUserId, keyExpression.CommentedPostId ,keyExpression.content});
+            builder.Entity<PostComment>()
+                    .HasOne(s => s.SourceUser)
+                    .WithMany(l => l.PostComments)
+                    .HasForeignKey(s => s.SourceUserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<PostComment>()
+                    .HasOne(s => s.CommentedPost)
+                    .WithMany(l => l.PostComments)
+                    .HasForeignKey(s => s.CommentedPostId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Post>()
+                .HasOne(s=>s.Poster)
+                .WithMany(s=>s.PostedPosts)
+                .HasForeignKey(s=>s.PosterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+//    builder.Entity<Post>()
+//                 .HasOne(s=>s.Photos)
+//                 .WithMany(s=>s.)
+//                 .HasForeignKey(s=>s.PosterId)
+//                     .OnDelete(DeleteBehavior.Cascade);
+                  
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)

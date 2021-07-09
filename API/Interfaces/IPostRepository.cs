@@ -18,6 +18,8 @@ namespace API.Interfaces
 
         Task<Post> GetPost( int postId);
 
+       
+
         Task<Post> GetMyPost( int postId,int PosterId);
 
         Task<PagedList<PostDto>> GetPosts(PostParams postParams);

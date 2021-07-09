@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210707152409_InitialCreategg5")]
+    partial class InitialCreategg5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,27 +309,6 @@ namespace API.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("API.Entities.PostComment", b =>
-                {
-                    b.Property<int>("SourceUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CommentedPostId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("creationDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SourceUserId", "CommentedPostId", "content");
-
-                    b.HasIndex("CommentedPostId");
-
-                    b.ToTable("PostComments");
-                });
-
             modelBuilder.Entity("API.Entities.PostLike", b =>
                 {
                     b.Property<int>("SourceUserId")
@@ -548,21 +529,6 @@ namespace API.Data.Migrations
                     b.HasOne("API.Entities.AppUser", "Poster")
                         .WithMany("PostedPosts")
                         .HasForeignKey("PosterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("API.Entities.PostComment", b =>
-                {
-                    b.HasOne("API.Entities.Post", "CommentedPost")
-                        .WithMany("PostComments")
-                        .HasForeignKey("CommentedPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Entities.AppUser", "SourceUser")
-                        .WithMany("PostComments")
-                        .HasForeignKey("SourceUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
