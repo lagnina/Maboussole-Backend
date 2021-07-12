@@ -28,7 +28,7 @@ namespace API.Controllers
 
         [HttpPost("Create")]
 
-        public async Task<ActionResult<Post>> PostCreate(PostDto postDto)
+        public async Task<ActionResult<int>> PostCreate(PostDto postDto)
         {
 
 
@@ -38,12 +38,14 @@ namespace API.Controllers
                 Content = postDto.Content,
                 PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 DateCreated = DateTime.Now,
-                speciality = postDto.speciality
+                speciality = postDto.speciality,
+                Type = postDto.Type,
+                Title=postDto.Title
             };
 
             this._unitOfWork.PostRepository.PostCreate(post);
 
-            if (await _unitOfWork.Complete()) return Ok(post);
+            if (await _unitOfWork.Complete()) return Ok(post.postId);
             return BadRequest("Problem Posting the Post");
         }
 

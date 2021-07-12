@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using API.Data;
 using API.Extensions;
@@ -40,6 +41,7 @@ namespace API
             services.AddCors();
             services.AddIdentityServices(_config);
             services.AddSignalR();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
