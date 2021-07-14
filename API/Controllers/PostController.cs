@@ -97,6 +97,7 @@ var pic = new Photo
         [HttpDelete("delete-post/{postId}")]
 
     public async Task<ActionResult<IEnumerable<PostDto>>> DeletePost(int postId)
+x
 
     {
         var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
