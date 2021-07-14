@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Helpers;
 using API.Extensions;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 { 
@@ -20,18 +21,31 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public PostController(IUnitOfWork unitOfWork, IMapper mapper)
+         private readonly IPhotoService _photoService;
+        public PostController(IUnitOfWork unitOfWork, IMapper mapper,
+            IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
+            _photoService = photoService;
             _mapper = mapper;
         }
 
         [HttpPost("Create")]
 
-        public async Task<ActionResult<int>> PostCreate(PostDto postDto)
+        public async Task<ActionResult<int>> PostCreate()
         {
 
+            var postDto = JsonConvert.DeserializeObject<PostDto>(Request.Form["PostForm"]);
+            var photo = Request.Form.Files.Count >0 ? Request.Form.Files.First() :  null;
+            if (photo !=null){
+var result = await _photoService.AddPhotoAsync(photo);
+var pic = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
 
+            }
             Post post = new Post
             {
 
@@ -40,7 +54,7 @@ namespace API.Controllers
                 DateCreated = DateTime.Now,
                 speciality = postDto.speciality,
                 Type = postDto.Type,
-                Title=postDto.Title
+                Title=postDto.Title,
             };
 
             this._unitOfWork.PostRepository.PostCreate(post);
