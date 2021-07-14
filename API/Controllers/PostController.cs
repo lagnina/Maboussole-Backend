@@ -34,32 +34,36 @@ namespace API.Controllers
 
         public async Task<ActionResult<int>> PostCreate()
         {
-
+            
             var postDto = JsonConvert.DeserializeObject<PostDto>(Request.Form["PostForm"]);
             var photo = Request.Form.Files.Count >0 ? Request.Form.Files.First() :  null;
             if (photo !=null){
-var result = await _photoService.AddPhotoAsync(photo);
-var pic = new Photo
+                    var result = await _photoService.AddPhotoAsync(photo);
+                     var pic = new Photo
             {
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
 
-            }
-            Post post = new Post
-            {
 
-                Content = postDto.Content,
-                PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                DateCreated = DateTime.Now,
-                speciality = postDto.speciality,
-                Type = postDto.Type,
-                Title=postDto.Title,
+                Post post = new Post
+                {
+
+                    Content = postDto.Content,
+                    PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                    DateCreated = DateTime.Now,
+                    speciality = postDto.speciality,
+                    Type = postDto.Type,
+                    Title = postDto.Title,
+                    Photos = pic,
+                    PhotoUrl = pic.Url
             };
+           
 
             this._unitOfWork.PostRepository.PostCreate(post);
 
             if (await _unitOfWork.Complete()) return Ok(post.postId);
+            }
             return BadRequest("Problem Posting the Post");
         }
 
@@ -92,6 +96,26 @@ var pic = new Photo
                 posts.TotalCount, posts.TotalPages);
 
             return Ok(posts);
+        }
+
+        [HttpGet("Posts/{postId}")]
+        public async Task<ActionResult<PostDto>> GetPost(int postId)
+        {
+            var post = await _unitOfWork.PostRepository.GetPostDto(postId);
+
+            if (post.Postlikes != null)
+            {
+                if (post.Postlikes.Where(p => p.SourceUserId == long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Count() > 0)
+                {
+                    post.isLiked = true;
+                }
+                else
+                {
+                    post.isLiked = false;
+                }
+
+            }
+            return Ok(post);
         }
 
         [HttpDelete("delete-post/{postId}")]

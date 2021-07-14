@@ -21,7 +21,7 @@ namespace API.Entities
         public string PhotoUrl { get; set; }
 
 
-        public PhotoDto Photos { get; set; }
+        public Photo Photos { get; set; }
 
         public AppUser Poster { get; set; }
 

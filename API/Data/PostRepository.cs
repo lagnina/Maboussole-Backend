@@ -38,6 +38,12 @@ namespace API.Data
 
            return await _context.Posts.Where(p =>p.postId == postId).SingleOrDefaultAsync();
         }
+        public async Task<PostDto> GetPostDto(int postId)
+        {
+            var query = _context.Posts.Where(p => p.postId == postId).AsQueryable();
+            return await query.ProjectTo<PostDto>(_mapper
+                .ConfigurationProvider).AsNoTracking().FirstOrDefaultAsync();
+        }
         public async Task<Post> GetMyPost(int postId,int PosterId){
 
            return await _context.Posts.Where(p =>p.PosterId == PosterId && p.postId ==postId).SingleOrDefaultAsync();
