@@ -3,35 +3,20 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace API.Data.Migrations
+namespace API.data.migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210720170232_manytomany")]
+    partial class manytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0-preview.8.20407.4");
-
-            modelBuilder.Entity("API.DTOs.PhotoDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PhotoDto");
-                });
 
             modelBuilder.Entity("API.Entities.AppRole", b =>
                 {
@@ -246,10 +231,13 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsMain")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PostId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PublicId")
@@ -261,6 +249,9 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("PostId")
+                        .IsUnique();
 
                     b.ToTable("Photos");
                 });
@@ -283,9 +274,6 @@ namespace API.Data.Migrations
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PhotosId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("PosterId")
                         .HasColumnType("INTEGER");
 
@@ -299,8 +287,6 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("postId");
-
-                    b.HasIndex("PhotosId");
 
                     b.HasIndex("PosterId");
 
@@ -563,17 +549,15 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("Photos")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("API.Entities.Post", "Post")
+                        .WithOne("Photos")
+                        .HasForeignKey("API.Entities.Photo", "PostId");
                 });
 
             modelBuilder.Entity("API.Entities.Post", b =>
                 {
-                    b.HasOne("API.DTOs.PhotoDto", "Photos")
-                        .WithMany()
-                        .HasForeignKey("PhotosId");
-
                     b.HasOne("API.Entities.AppUser", "Poster")
                         .WithMany("PostedPosts")
                         .HasForeignKey("PosterId")

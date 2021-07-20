@@ -25,8 +25,9 @@ namespace API.Entities
 
         public AppUser Poster { get; set; }
 
-        public ICollection<PostLike> Postlikes;
-        public ICollection<PostComment> PostComments;
+        public ICollection<PostLike> Postlikes { get; set; }
+        public ICollection<PostComment> PostComments { get; set; }
+        public ICollection<Tag> PostTags { get; set; }
 
 
 

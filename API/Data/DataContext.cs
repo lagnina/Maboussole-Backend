@@ -28,6 +28,7 @@ namespace API.Data
 
         public DbSet<PostLike> PostLikes  { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -77,6 +78,8 @@ namespace API.Data
                     .WithMany(l => l.PostComments)
                     .HasForeignKey(s => s.CommentedPostId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+            
             builder.Entity<Post>()
                 .HasOne(s=>s.Poster)
                 .WithMany(s=>s.PostedPosts)

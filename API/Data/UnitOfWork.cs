@@ -25,6 +25,8 @@ namespace API.Data
 
         public IPostCommentRepository PostCommentRepository => new PostCommentRepository(_context, _mapper);
 
+        public ITagRepository TagRepository => new TagRepository(_context, _mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
