@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 
@@ -29,6 +30,11 @@ namespace API.Data
 
         public async Task<bool> Complete()
         {
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> AddPhoto(Photo photo)
+        {
+             _context.Photos.Add(photo);
             return await _context.SaveChangesAsync() > 0;
         }
 

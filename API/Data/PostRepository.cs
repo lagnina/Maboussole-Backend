@@ -22,7 +22,6 @@ namespace API.Data
 
         public void PostCreate(Post post)
         {
-
           _context.Posts.Add(post);
             
         }

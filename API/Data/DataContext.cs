@@ -29,6 +29,7 @@ namespace API.Data
         public DbSet<PostLike> PostLikes  { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

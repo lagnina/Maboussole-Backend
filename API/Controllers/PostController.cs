@@ -34,38 +34,59 @@ namespace API.Controllers
 
         public async Task<ActionResult<int>> PostCreate()
         {
-            
-            var postDto = JsonConvert.DeserializeObject<PostDto>(Request.Form["PostForm"]);
-            var photo = Request.Form.Files.Count >0 ? Request.Form.Files.First() :  null;
-            if (photo !=null){
-                    var result = await _photoService.AddPhotoAsync(photo);
-                     var pic = new Photo
+            try
             {
-                Url = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
-            };
-
-
-                Post post = new Post
+                var postDto = JsonConvert.DeserializeObject<PostDto>(Request.Form["PostForm"]);
+                var photo = Request.Form.Files.Count > 0 ? Request.Form.Files.First() : null;
+                if (photo != null)
                 {
+                    var result = await _photoService.AddPhotoAsync(photo);
+                    var pic = new Photo
+                    {
+                        Url = result.SecureUrl.AbsoluteUri,
+                        PublicId = result.PublicId,
+                    };
+                   
 
-                    Content = postDto.Content,
-                    PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                    DateCreated = DateTime.Now,
-                    speciality = postDto.speciality,
-                    Type = postDto.Type,
-                    Title = postDto.Title,
-                    Photos = pic,
-                    PhotoUrl = pic.Url,
-                    PostTags = postDto.PostTags
-            };
-           
 
-            this._unitOfWork.PostRepository.PostCreate(post);
 
-            if (await _unitOfWork.Complete()) return Ok(post.postId);
+                    Post post = new Post
+                    {
+
+                        Content = postDto.Content,
+                        PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                        DateCreated = DateTime.Now,
+                        speciality = postDto.speciality,
+                        Type = postDto.Type,
+                        Title = postDto.Title,
+                        Photos = pic,
+                        PhotoUrl = pic.Url,
+                        Poster = await this._unitOfWork.UserRepository.GetUserByIdAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                    };
+                    post.PostTags = new List<Tag>();
+                    foreach (Tag tag in postDto.PostTags)
+                    {
+                        post.PostTags.Add(new Tag
+                        {
+                            Id = tag.Id,
+                            name = tag.name
+                        });
+                    }
+
+
+                    this._unitOfWork.PostRepository.PostCreate(post);
+
+                    if (await _unitOfWork.Complete()) return Ok(post.postId);
+                }
+                return BadRequest("Problem Posting the Post");
+
             }
-            return BadRequest("Problem Posting the Post");
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+          
         }
 
          [HttpGet("Posts")]

@@ -1,3 +1,4 @@
+using API.Entities;
 using System.Threading.Tasks;
 
 namespace API.Interfaces
@@ -11,6 +12,7 @@ namespace API.Interfaces
         IPostCommentRepository PostCommentRepository { get; }
         ITagRepository TagRepository { get; }
         Task<bool> Complete();
+        Task<bool> AddPhoto(Photo photo);
         bool HasChanges();
     }
 }
