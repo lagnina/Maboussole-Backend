@@ -28,7 +28,8 @@ namespace API.DTOs
       public PhotoDto Photos { get; set; }
 
 
-        public ICollection<PostLike> Postlikes;
+        public ICollection<PostLike> Postlikes { get; set; }
+        public ICollection<Tag> PostTags { get; set; }
 
 
     }

@@ -56,7 +56,8 @@ namespace API.Controllers
                     Type = postDto.Type,
                     Title = postDto.Title,
                     Photos = pic,
-                    PhotoUrl = pic.Url
+                    PhotoUrl = pic.Url,
+                    PostTags = postDto.PostTags
             };
            
 
