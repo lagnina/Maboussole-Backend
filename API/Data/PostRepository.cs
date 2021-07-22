@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -32,6 +33,14 @@ namespace API.Data
             return await PagedList<PostDto>.CreateAsync(query.ProjectTo<PostDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(), 
                     postParams.PageNumber, postParams.PageSize);
+        }
+        public ICollection<PostDto> GetPostsByTag(int tagId)
+        {
+            var tag = _context.Tags.Where(t => t.Id == tagId).FirstOrDefault();
+            var query = _context.Posts.Include(p => p.Poster.Photos).Include(p => p.PostTags).Where(p => p.PostTags.Contains(tag)).AsQueryable();
+
+            return query.ProjectTo<PostDto>(_mapper
+                .ConfigurationProvider).AsNoTracking().ToList();
         }
         public async Task<Post> GetPost(int postId){
 

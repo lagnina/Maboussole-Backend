@@ -120,6 +120,14 @@ namespace API.Controllers
             return Ok(posts);
         }
 
+        // example : post/postsbytag?tagid=2
+        [HttpGet("PostsByTag")]
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetPostsBytag(int tagId)
+        {
+            var posts =  _unitOfWork.PostRepository.GetPostsByTag(tagId);
+            return Ok(posts);
+        }
+
         [HttpGet("Posts/{postId}")]
         public async Task<ActionResult<PostDto>> GetPost(int postId)
         {
