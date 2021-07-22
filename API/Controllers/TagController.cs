@@ -34,7 +34,7 @@ namespace API.Controllers
 
 
         }
-
+        [HttpGet("GetAllTags")]
         public async Task<ActionResult<ICollection<Tag>>> GetAllTags()
         {
 
