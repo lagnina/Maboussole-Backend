@@ -81,7 +81,7 @@ namespace API.Data.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("KnownAs")
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastActive")
@@ -374,7 +374,7 @@ namespace API.Data.Migrations
                     b.Property<int>("questionnaireId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("KnownAsId")
+                    b.Property<int?>("EmailId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("domaine")
@@ -385,7 +385,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("userId", "questionnaireId");
 
-                    b.HasIndex("KnownAsId");
+                    b.HasIndex("EmailId");
 
                     b.HasIndex("questionnaireId");
 
@@ -604,9 +604,9 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Result", b =>
                 {
-                    b.HasOne("API.Entities.AppUser", "KnownAs")
+                    b.HasOne("API.Entities.AppUser", "Email")
                         .WithMany("results")
-                        .HasForeignKey("KnownAsId");
+                        .HasForeignKey("EmailId");
 
                     b.HasOne("API.Entities.Questionnaire", "questionnaire")
                         .WithMany("results")

@@ -21,7 +21,7 @@ namespace API.Helpers
 
             CreateMap<Post, PostDto>()
                 .ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Postlikes.Count()))
-                .ForMember(dest => dest.posterName, opt => opt.MapFrom(src => src.Poster.KnownAs))
+                .ForMember(dest => dest.posterName, opt => opt.MapFrom(src => src.Poster.Email))
                 .ForMember(dest => dest.PosterPhotoUrl, opt => opt.MapFrom(src => src.Poster.Photos.FirstOrDefault().Url))
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.PhotoUrl))
                 .ForMember(dest => dest.PostTags, opt => opt.MapFrom(src => src.PostTags));
