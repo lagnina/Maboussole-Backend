@@ -12,7 +12,7 @@ namespace API.Data.Migrations
                 table: "Question");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Result_AspNetUsers_KnownAsId",
+                name: "FK_Result_AspNetUsers_EmailId",
                 table: "Result");
 
             migrationBuilder.DropForeignKey(
@@ -49,9 +49,9 @@ namespace API.Data.Migrations
                 newName: "IX_Results_questionnaireId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Result_KnownAsId",
+                name: "IX_Result_EmailId",
                 table: "Results",
-                newName: "IX_Results_KnownAsId");
+                newName: "IX_Results_EmailId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Question_questionnaireId",
@@ -105,9 +105,9 @@ namespace API.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Results_AspNetUsers_KnownAsId",
+                name: "FK_Results_AspNetUsers_EmailId",
                 table: "Results",
-                column: "KnownAsId",
+                column: "EmailId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -128,7 +128,7 @@ namespace API.Data.Migrations
                 table: "Questions");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Results_AspNetUsers_KnownAsId",
+                name: "FK_Results_AspNetUsers_EmailId",
                 table: "Results");
 
             migrationBuilder.DropForeignKey(
@@ -168,9 +168,9 @@ namespace API.Data.Migrations
                 newName: "IX_Result_questionnaireId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Results_KnownAsId",
+                name: "IX_Results_EmailId",
                 table: "Result",
-                newName: "IX_Result_KnownAsId");
+                newName: "IX_Result_EmailId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Questions_questionnaireId",
@@ -211,9 +211,9 @@ namespace API.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Result_AspNetUsers_KnownAsId",
+                name: "FK_Result_AspNetUsers_EmailId",
                 table: "Result",
-                column: "KnownAsId",
+                column: "EmailId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);

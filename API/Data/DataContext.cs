@@ -86,6 +86,12 @@ namespace API.Data
                 .WithMany(s=>s.PostedPosts)
                 .HasForeignKey(s=>s.PosterId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+            // builder.Entity<Tag>()
+            //     .HasOne(s=>s.)
+            //     .WithMany(s=>s.PostTags)
+            //     .HasForeignKey(s=>s.Id)
+            //         .OnDelete(DeleteBehavior.Cascade);
 //    builder.Entity<Post>()
 //                 .HasOne(s=>s.Photos)
 //                 .WithMany(s=>s.)
