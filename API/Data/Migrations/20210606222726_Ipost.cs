@@ -48,15 +48,15 @@ namespace API.Data.Migrations
                     domaine = table.Column<string>(type: "TEXT", nullable: false),
                     note = table.Column<int>(type: "INTEGER", nullable: false),
                     userId = table.Column<int>(type: "INTEGER", nullable: false),
-                    KnownAsId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EmailId = table.Column<int>(type: "INTEGER", nullable: true),
                     questionnaireId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Result", x => x.domaine);
                     table.ForeignKey(
-                        name: "FK_Result_AspNetUsers_KnownAsId",
-                        column: x => x.KnownAsId,
+                        name: "FK_Result_AspNetUsers_EmailId",
+                        column: x => x.EmailId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -74,9 +74,9 @@ namespace API.Data.Migrations
                 column: "questionnaireId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Result_KnownAsId",
+                name: "IX_Result_EmailId",
                 table: "Result",
-                column: "KnownAsId");
+                column: "EmailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Result_questionnaireId",
