@@ -15,10 +15,12 @@ namespace API.Controllers
         {
             _context = context;
         }
-        [HttpGet]
+        
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Questionnaire>>> GetQuestionnaires()
+        [HttpPost("Quiz")]
+        public async Task<ActionResult<IEnumerable<Questionnaire>>> GetQuestionnairesResult([FromBody]MyPayload[] results)
         {
+            var data = Request.Body;
             return await _context.Questionnaires.ToListAsync();
         }
         [Authorize]
@@ -43,4 +45,11 @@ namespace API.Controllers
         }
 
     }
+}
+public class MyPayload
+{
+    public string name { get; set; }
+    public float ratingSum { get; set; }
+
+    public float note { get; set; }
 }
