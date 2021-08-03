@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210801200414_resultChange4")]
+    partial class resultChange4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,38 +168,6 @@ namespace API.Data.Migrations
                     b.HasIndex("GroupName");
 
                     b.ToTable("Connections");
-                });
-
-            modelBuilder.Entity("API.Entities.Formation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Adresse")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Domaine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Etablissement")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Secteur")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Site")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Ville")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Formations");
                 });
 
             modelBuilder.Entity("API.Entities.Group", b =>
@@ -403,19 +373,19 @@ namespace API.Data.Migrations
                     b.Property<string>("domaine")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("creationDate")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("isMain")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("QuestionnaireId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("isMain")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("creationDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<float>("note")
                         .HasColumnType("REAL");
 
-                    b.HasKey("userId", "domaine", "creationDate");
+                    b.HasKey("userId", "domaine", "isMain");
 
                     b.HasIndex("QuestionnaireId");
 

@@ -30,7 +30,7 @@ namespace API.Data
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Photo> Photos { get; set; }
-
+        public DbSet<Formation> Formations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -112,15 +112,12 @@ namespace API.Data
            builder.Entity<Question>()
                .HasOne(e => e.questionnaire)
                .WithMany(c => c.questions);
-           builder.Entity<Result>()
-        .HasKey(c => new { c.userId, c.questionnaireId});
-           builder.Entity<Result>()
-               .HasOne(e => e.questionnaire)
-               .WithMany(c => c.results);
-        //    builder.Entity<Result>()
-        //        .HasOne(e => e.userId)
-        //        .WithMany(c => c.results);
 
+            //builder.Entity<Result>()
+            //    .HasOne(e => e.userId)
+            //    .WithMany(c => c.results);
+            builder.Entity<Result>()
+       .HasKey(c => new { c.userId, c.domaine , c.creationDate});
             builder.ApplyUtcDateTimeConverter();
         }
     }
