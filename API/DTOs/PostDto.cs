@@ -30,7 +30,7 @@ namespace API.DTOs
 
         public ICollection<PostLike> Postlikes { get; set; }
         public ICollection<Tag> PostTags { get; set; }
-
+public ICollection<string> PostTagsNames { get; set; }
 
     }
 }

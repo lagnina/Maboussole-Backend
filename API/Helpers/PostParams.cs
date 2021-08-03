@@ -10,6 +10,7 @@ namespace API.Helpers
     { 
         
         public string Type { get; set; }
+        public string OrderBy { get; set; } = "lastPost";
 
 
     }

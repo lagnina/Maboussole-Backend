@@ -41,5 +41,13 @@ namespace API.Controllers
             var result = await this._unitOfWork.TagRepository.GetAllTags();
             return Ok(result);
         }
+
+        [HttpGet("GetPostsTags")]
+
+        public async Task<ActionResult<ICollection<Tag>>> GetPostsTags()
+        {
+            var result = await this._unitOfWork.TagRepository.GetPostsTags();
+            return Ok(result);
+        }
     }
 }

@@ -30,6 +30,11 @@ namespace API.Data
         {
             var query = _context.Posts.Include(p=>p.Poster.Photos).Include(p=>p.PostTags).Where(p=> p.Type == postParams.Type).AsQueryable();
 
+       query = postParams.OrderBy switch
+            {
+                "DateCreated" => query.OrderByDescending(u => u.DateCreated),
+                _ => query.OrderByDescending(u => u.DateCreated)
+            };
             return await PagedList<PostDto>.CreateAsync(query.ProjectTo<PostDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(), 
                     postParams.PageNumber, postParams.PageSize);
@@ -44,7 +49,7 @@ namespace API.Data
         }
         public async Task<Post> GetPost(int postId){
 
-           return await _context.Posts.Where(p =>p.postId == postId).SingleOrDefaultAsync();
+           return await _context.Posts.Where(p =>p.postId == postId).Include(p=>p.PostTags).SingleOrDefaultAsync();
         }
         public async Task<PostDto> GetPostDto(int postId)
         {
