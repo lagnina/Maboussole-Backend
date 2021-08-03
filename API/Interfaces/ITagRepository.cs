@@ -10,7 +10,7 @@ namespace API.Interfaces
     {
         Task<bool> AddTag(Tag tag);
         Task<Tag> GetTag(string name);
-       Task<ICollection<Tag>> GetAllTags();
+       Task<ICollection<Tag>> GetAllTags();;
 
         
     }
