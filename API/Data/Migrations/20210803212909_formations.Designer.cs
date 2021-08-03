@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace API.Data.Migrations
+namespace API.data.migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210803212909_formations")]
+    partial class formations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,38 +168,6 @@ namespace API.Data.Migrations
                     b.HasIndex("GroupName");
 
                     b.ToTable("Connections");
-                });
-
-            modelBuilder.Entity("API.Entities.Formation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Adresse")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Domaine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Etablissement")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Secteur")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Site")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Ville")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Formations");
                 });
 
             modelBuilder.Entity("API.Entities.Group", b =>
