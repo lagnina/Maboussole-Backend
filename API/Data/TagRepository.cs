@@ -29,10 +29,16 @@ namespace API.Data
             }
             return false;
         }
-
+public async Task<Tag> GetTag(string name)
+        {
+            var existingTag =  await _context.Tags.Where(t => t.name == name).FirstOrDefaultAsync();
+           return existingTag;
+        }
         public async Task<ICollection<Tag>> GetAllTags()
         {
             return await _context.Tags.ToArrayAsync();
         }
+
+        
     }
 }

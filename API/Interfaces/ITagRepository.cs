@@ -9,7 +9,9 @@ namespace API.Interfaces
     public interface ITagRepository
     {
         Task<bool> AddTag(Tag tag);
-        Task<ICollection<Tag>> GetAllTags();
+        Task<Tag> GetTag(string name);
+       Task<ICollection<Tag>> GetAllTags();
+
         
     }
 }

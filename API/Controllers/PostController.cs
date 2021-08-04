@@ -56,7 +56,6 @@ namespace API.Controllers
                         Content = postDto.Content,
                         PosterId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                         DateCreated = DateTime.Now,
-                        speciality = postDto.speciality,
                         Type = postDto.Type,
                         Title = postDto.Title,
                         Photos = pic,
@@ -64,13 +63,10 @@ namespace API.Controllers
                         Poster = await this._unitOfWork.UserRepository.GetUserByIdAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                     };
                     post.PostTags = new List<Tag>();
-                    foreach (Tag tag in postDto.PostTags)
+                    foreach (string tagName in postDto.PostTagsNames)
                     {
-                        post.PostTags.Add(new Tag
-                        {
-                            Id = tag.Id,
-                            name = tag.name
-                        });
+                        var realtag =await  this._unitOfWork.TagRepository.GetTag(tagName);
+                      if(realtag!=null)  post.PostTags.Add(realtag);
                     }
 
 
@@ -127,6 +123,7 @@ namespace API.Controllers
             var posts =  _unitOfWork.PostRepository.GetPostsByTag(tagId);
             return Ok(posts);
         }
+        
 
         [HttpGet("Posts/{postId}")]
         public async Task<ActionResult<PostDto>> GetPost(int postId)
