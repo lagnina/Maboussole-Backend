@@ -15,5 +15,6 @@ namespace API.Entities
         public string Etablissement { get; set; }
         public string Adresse { get; set; }
         public string Domaine { get; set; }
+        public string Phone { get; set; }
     }
 }

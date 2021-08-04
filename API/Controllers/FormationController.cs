@@ -39,10 +39,12 @@ namespace API.Controllers
             List<Formation> formations = new List<Formation>();
             foreach (FormationsDto fd in results.ecoles)
             {
+                var split = fd.Ville.Split(' ');
                 var formation = new Formation()
                 {
                     Name = fd.Name,
-                    Ville = fd.Ville,
+                    Ville = split[0],
+                    Phone = split[1],
                     Site = fd.Site,
                     Secteur = fd.Secteur,
                     Etablissement = fd.Etablissement,
