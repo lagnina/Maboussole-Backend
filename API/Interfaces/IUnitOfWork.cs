@@ -11,6 +11,8 @@ namespace API.Interfaces
         IPostLikeRepository PostLikeRepository{get;}
         IPostCommentRepository PostCommentRepository { get; }
         ITagRepository TagRepository { get; }
+
+        IFormationRepository FormationRepository{ get;}
         Task<bool> Complete();
         Task<bool> AddPhoto(Photo photo);
         bool HasChanges();

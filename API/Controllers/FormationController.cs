@@ -56,23 +56,31 @@ namespace API.Controllers
             this._context.AddRange(formations);
             await this._context.SaveChangesAsync();
             return Ok(formations);
+            
+            }
 
+            [HttpGet("FormationsByDomaine")]
+        public async Task<ActionResult<IEnumerable<FormationsDto>>>  GetFormations([FromQuery]FormationParams formationParams ){
+
+            var formations= _unitOfWork.FormationRepository.GetFormations(formationParams);
+
+          Response.AddPaginationHeader(formations.CurrentPage, formations.PageSize, formations.TotalCount, formations.TotalPages);
+            return Ok(formations);
         }
-     
-    }
-    public class Request
+
+         [HttpGet("Formations/{Id}")]
+        public async Task<ActionResult<IEnumerable<FormationsDto>>>  GetFormation(int id ){
+
+            var formations= await _unitOfWork.FormationRepository.GetFormation(id);
+
+return Ok(formations);
+        }
+
+
+
+        }    public class Request
     {
         public string Secteur { get; set; }
         public List<FormationsDto> ecoles { get; set; }
-    }
-    public class FormationsDto
-    {
-        public string Name { get; set; }
-        public string Ville { get; set; }
-        public string Site { get; set; }
-        public string Secteur { get; set; }
-        public string Etablissement { get; set; }
-        public string Adresse { get; set; }
-
     }
 }

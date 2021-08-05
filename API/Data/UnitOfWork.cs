@@ -26,7 +26,11 @@ namespace API.Data
 
         public IPostCommentRepository PostCommentRepository => new PostCommentRepository(_context, _mapper);
 
+        // public IFormationRepository FormationRepository => new FormationRepository(_context,_mapper);
+
         public ITagRepository TagRepository => new TagRepository(_context, _mapper);
+
+        public IFormationRepository FormationRepository => throw new System.NotImplementedException();
 
         public async Task<bool> Complete()
         {

@@ -142,7 +142,7 @@ namespace API.Controllers
                 }
 
             }
-            return Ok(post);
+            return Ok(post); 
         }
 
         [HttpDelete("delete-post/{postId}")]
