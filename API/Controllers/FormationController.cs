@@ -62,7 +62,7 @@ namespace API.Controllers
             [HttpGet("FormationsByDomaine")]
         public async Task<ActionResult<IEnumerable<FormationsDto>>>  GetFormations([FromQuery]FormationParams formationParams ){
 
-            var formations= _unitOfWork.FormationRepository.GetFormations(formationParams);
+            var formations= await  _unitOfWork.FormationRepository.GetFormations(formationParams);
 
           Response.AddPaginationHeader(formations.CurrentPage, formations.PageSize, formations.TotalCount, formations.TotalPages);
             return Ok(formations);
