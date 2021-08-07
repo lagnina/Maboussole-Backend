@@ -37,7 +37,7 @@ namespace API.Controllers
         public async Task<ActionResult<List<Formation>>> AddFormations([FromBody] Request results)
         {
             List<Formation> formations = new List<Formation>();
-            foreach (FormationsDto fd in results.ecoles)
+            foreach (FormationDto fd in results.ecoles)
             {
                 var split = fd.Ville.Split(' ');
                 var formation = new Formation()
@@ -60,16 +60,18 @@ namespace API.Controllers
             }
 
             [HttpGet("FormationsByDomaine")]
-        public async Task<ActionResult<IEnumerable<FormationsDto>>>  GetFormations([FromQuery]FormationParams formationParams ){
+        public async Task<ActionResult<IEnumerable<FormationDto>>>  GetFormations([FromQuery]FormationParams formationParams )
+        {
 
             var formations= await  _unitOfWork.FormationRepository.GetFormations(formationParams);
 
-          Response.AddPaginationHeader(formations.CurrentPage, formations.PageSize, formations.TotalCount, formations.TotalPages);
+          Response.AddPaginationHeader(formations.CurrentPage,formations.PageSize, formations.TotalCount,
+                                       formations.TotalPages);
             return Ok(formations);
         }
 
          [HttpGet("Formations/{Id}")]
-        public async Task<ActionResult<IEnumerable<FormationsDto>>>  GetFormation(int id ){
+        public async Task<ActionResult<IEnumerable<FormationDto>>>  GetFormation(int id ){
 
             var formations= await _unitOfWork.FormationRepository.GetFormation(id);
 
@@ -81,6 +83,6 @@ return Ok(formations);
         }    public class Request
     {
         public string Secteur { get; set; }
-        public List<FormationsDto> ecoles { get; set; }
+        public List<FormationDto> ecoles { get; set; }
     }
 }

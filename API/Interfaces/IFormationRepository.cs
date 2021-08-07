@@ -13,7 +13,7 @@ namespace API.Interfaces
 
         void AddFormations(Formation formation);
         Task<Formation> GetFormation(int id);
-        Task<PagedList<Formation>> GetFormations(FormationParams formationParams);
+        Task<PagedList<FormationDto>> GetFormations(FormationParams formationParams);
         Task<Formation> GetFormationBySecteur( int formationId,int FormationerId);
 
     }

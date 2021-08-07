@@ -36,13 +36,23 @@ _context.Formations.Add(formation);        }
             throw new System.NotImplementedException();
         }
 
-        public async Task<PagedList<Formation>> GetFormations(FormationParams formationParams)
+        public async Task<PagedList<FormationDto>> GetFormations(FormationParams formationParams)
         {
- var query = _context.Formations.Where(p=> p.Domaine == formationParams.Domaine).AsQueryable();
-
+            IQueryable<Formation> query;
+            if(formationParams.Domaine == null)
+            {
+                 query = _context.Formations.AsQueryable();
+            }
+            else
+            {
+                 query = _context.Formations.Where(p => p.Domaine == formationParams.Domaine).AsQueryable();
+            }
  
+           
+
+
             
-            return await PagedList<Formation>.CreateAsync(query.ProjectTo<Formation>(_mapper
+            return await PagedList<FormationDto>.CreateAsync(query.ProjectTo<FormationDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(), 
                     formationParams.PageNumber, formationParams.PageSize);        }
 

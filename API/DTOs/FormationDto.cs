@@ -1,6 +1,7 @@
 namespace API.DTOs
-{    public class FormationsDto
+{    public class FormationDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Ville { get; set; }
         public string Site { get; set; }

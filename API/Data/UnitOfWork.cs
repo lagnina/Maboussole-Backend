@@ -30,8 +30,7 @@ namespace API.Data
 
         public ITagRepository TagRepository => new TagRepository(_context, _mapper);
 
-        public IFormationRepository FormationRepository => throw new System.NotImplementedException();
-
+        public IFormationRepository FormationRepository => new FormationRepository(_context, _mapper);
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
