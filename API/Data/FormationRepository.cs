@@ -25,13 +25,13 @@ namespace API.Data
         {
 _context.Formations.Add(formation);        }
 
-        public Task<Formation> GetFormation(int id)
+        public Task<Formation> GetFormation(string Name)
         {
 
-           return  _context.Formations.Where(p =>p.Id == id).SingleOrDefaultAsync();
+           return  _context.Formations.Where(p =>p.Name == Name).SingleOrDefaultAsync();
         }
 
-        public Task<Formation> GetFormationBySecteur(int formationId, int FormationerId)
+        public Task<Formation> GetFormationBySecteur(int formationId, int FormationId)
         {
             throw new System.NotImplementedException();
         }
@@ -44,23 +44,23 @@ _context.Formations.Add(formation);        }
             if (formationParams.Domaine != null && formationParams.Domaine != "")
           
             {
-                 query = query.Where(p => p.Domaine.Contains(formationParams.Domaine)).AsQueryable();
+                 query = query.Where(p => p.Domaine.ToLower().Contains(formationParams.Domaine.ToLower())).AsQueryable();
             }
 
             if (formationParams.Ville != null && formationParams.Ville != "")
 
             {
-                query = query.Where(p => p.Ville.Contains(formationParams.Ville)).AsQueryable();
+                query = query.Where(p => p.Ville.ToLower().Contains(formationParams.Ville.ToLower())).AsQueryable();
             }
             if (formationParams.Etablissement == null && formationParams.Etablissement == "")
 
             {
-                query = query.Where(p => p.Etablissement.Contains(formationParams.Etablissement)).AsQueryable();
+                query = query.Where(p => p.Etablissement.ToLower().Contains(formationParams.Etablissement.ToLower())).AsQueryable();
             }
             if (formationParams.Secteur != null && formationParams.Secteur != "")
 
             {
-                query = query.Where(p => p.Secteur.Contains(formationParams.Secteur)).AsQueryable();
+                query = query.Where(p => p.Secteur.ToLower().Contains(formationParams.Secteur.ToLower())).AsQueryable();
             }
 
 

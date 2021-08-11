@@ -17,7 +17,6 @@ using API.Data;
 
 namespace API.Controllers
 {
-    [Authorize]
     public class FormationController : BaseApiController
     {
         private readonly IMapper _mapper;
@@ -32,21 +31,20 @@ namespace API.Controllers
             _photoService = photoService;
             _mapper = mapper;
         }
-        [Authorize]
-        [HttpPost("Add")]
+            [HttpPost("Add")]
         public async Task<ActionResult<List<Formation>>> AddFormations([FromBody] Request results)
         {
             List<Formation> formations = new List<Formation>();
             foreach (FormationDto fd in results.ecoles)
             {
-                var split = fd.Ville.Split(' ');
+                var split = fd.Ville.Trim().Split(' ');
                 var formation = new Formation()
                 {
-                    Name = fd.Name,
+                    Name = fd.Name.Trim(),
                     Ville = split[0],
                     Phone = split[1],
                     Site = fd.Site,
-                    Secteur = fd.Secteur,
+                    Secteur = fd.Secteur.Trim(),
                     Etablissement = fd.Etablissement,
                     Adresse = fd.Adresse,
                     Domaine = results.Secteur
@@ -70,10 +68,20 @@ namespace API.Controllers
             return Ok(formations);
         }
 
-         [HttpGet("Formations/{Id}")]
-        public async Task<ActionResult<IEnumerable<FormationDto>>>  GetFormation(int id ){
+    [HttpGet("Domaine")]
+        public async Task<ActionResult<IEnumerable<FormationDto>>>  GetDomaines([FromQuery]FormationParams formationParams )
+        {
 
-            var formations= await _unitOfWork.FormationRepository.GetFormation(id);
+            var formations= await  _unitOfWork.FormationRepository.GetFormations(formationParams);
+
+          Response.AddPaginationHeader(formations.CurrentPage,formations.PageSize, formations.TotalCount,
+                                       formations.TotalPages);
+            return Ok(formations);
+        }
+         [HttpGet("Formations/{Name}")]
+        public async Task<ActionResult<IEnumerable<FormationDto>>>  GetFormation(String Name ){
+
+            var formations= await _unitOfWork.FormationRepository.GetFormation(Name);
 
 return Ok(formations);
         }

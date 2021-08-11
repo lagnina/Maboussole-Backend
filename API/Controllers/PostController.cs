@@ -16,7 +16,6 @@ using Newtonsoft.Json;
 
 namespace API.Controllers
 { 
-    [Authorize]
     public class PostController : BaseApiController
     {
         private readonly IMapper _mapper;
