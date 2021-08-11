@@ -23,30 +23,62 @@ namespace API.Controllers
         
         [Authorize]
         [HttpPost("Quiz")]
-        public async Task<ActionResult<Result>> GetQuestionnairesResult([FromBody]MyPayload[] results)
+        public async Task<ActionResult> PostQuestionnairesResult([FromBody]MyPayload[] results)
         {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            foreach (MyPayload result in results)
+            try
             {
-                var existingRsult = this._context.Results.Where(r => r.domaine == result.name && r.userId == userId && r.isMain).FirstOrDefault();
-                if (existingRsult != null) existingRsult.isMain = false;
-                var newResult = new Result()
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                foreach (MyPayload result in results)
                 {
-                    domaine = result.name,
-                    note = result.note,
-                    userId = userId,
-                    User = await this._unitOfWork.UserRepository.GetUserByIdAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))),
-                    creationDate = DateTime.Now,
-                    isMain = true
-                };
-                this._context.Results.Update(existingRsult);
-                this._context.Results.Add(newResult);
-                await this._context.SaveChangesAsync();
+                    var existingRsult = this._context.Results.Where(r => r.domaine == result.name && r.userId == userId && r.isMain).FirstOrDefault();
+                    if (existingRsult != null)
+                    {
+                        existingRsult.isMain = false;
+                        this._context.Results.Update(existingRsult);
+                    }
+                    var newResult = new Result()
+                    {
+                        domaine = result.name,
+                        note = result.note,
+                        userId = userId,
+                        User = await this._unitOfWork.UserRepository.GetUserByIdAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))),
+                        creationDate = DateTime.Now,
+                        isMain = true
+                    };
 
+                    this._context.Results.Add(newResult);
+                    await this._context.SaveChangesAsync();
+
+                }
+
+                return Ok();
             }
-            
-            return await _context.Results.Where(r=>r.userId == userId && r.isMain).FirstOrDefaultAsync();
+            catch(Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+           
         }
+
+        [Authorize]
+        [HttpGet("Result")]
+        public async Task<ActionResult<IEnumerable<Result>>> GetQuestionnaireResult()
+        {
+            try
+            {
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+               var results = await  this._context.Results.Where(r => r.userId == userId && r.isMain == true).ToListAsync();
+
+                return results;
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+
+        }
+
+
         [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Questionnaire>> GetQuestionnaire(int id)

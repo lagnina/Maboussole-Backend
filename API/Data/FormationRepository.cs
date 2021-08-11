@@ -38,20 +38,36 @@ _context.Formations.Add(formation);        }
 
         public async Task<PagedList<FormationDto>> GetFormations(FormationParams formationParams)
         {
-            IQueryable<Formation> query;
-            if(formationParams.Domaine == null)
-            {
-                 query = _context.Formations.AsQueryable();
-            }
-            else
-            {
-                 query = _context.Formations.Where(p => p.Domaine == formationParams.Domaine).AsQueryable();
-            }
- 
-           
-
-
+            var query = _context.Formations.AsQueryable();
             
+            
+            if (formationParams.Domaine != null && formationParams.Domaine != "")
+          
+            {
+                 query = query.Where(p => p.Domaine.Contains(formationParams.Domaine)).AsQueryable();
+            }
+
+            if (formationParams.Ville != null && formationParams.Ville != "")
+
+            {
+                query = query.Where(p => p.Ville.Contains(formationParams.Ville)).AsQueryable();
+            }
+            if (formationParams.Etablissement == null && formationParams.Etablissement == "")
+
+            {
+                query = query.Where(p => p.Etablissement.Contains(formationParams.Etablissement)).AsQueryable();
+            }
+            if (formationParams.Secteur != null && formationParams.Secteur != "")
+
+            {
+                query = query.Where(p => p.Secteur.Contains(formationParams.Secteur)).AsQueryable();
+            }
+
+
+
+
+
+
             return await PagedList<FormationDto>.CreateAsync(query.ProjectTo<FormationDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(), 
                     formationParams.PageNumber, formationParams.PageSize);        }
