@@ -23,6 +23,6 @@ namespace API.Interfaces
         Task<Post> GetMyPost( int postId,int PosterId);
 
         Task<PagedList<PostDto>> GetPosts(PostParams postParams);
-        ICollection<PostDto> GetPostsByTag(int tagId);
+        Task<PagedList<PostDto>> GetPostsByTag(int tagId,PostParams postParams);
     }
 }

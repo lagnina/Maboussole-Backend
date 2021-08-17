@@ -117,9 +117,11 @@ namespace API.Controllers
 
         // example : post/postsbytag?tagid=2
         [HttpGet("PostsByTag")]
-        public async Task<ActionResult<IEnumerable<PostDto>>> GetPostsBytag(int tagId)
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetPostsBytag(int tagId,[FromQuery] PostParams postParams)
         {
-            var posts =  _unitOfWork.PostRepository.GetPostsByTag(tagId);
+            var posts = await  _unitOfWork.PostRepository.GetPostsByTag(tagId,postParams);
+            Response.AddPaginationHeader(posts.CurrentPage, posts.PageSize,
+                posts.TotalCount, posts.TotalPages);
             return Ok(posts);
         }
         

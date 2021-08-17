@@ -6,6 +6,8 @@ namespace API.DTOs
         public string Ville { get; set; }
         public string Site { get; set; }
         public string Secteur { get; set; }
+
+        public string Domaine {get;set;}
         public string Etablissement { get; set; }
         public string Adresse { get; set; }
 

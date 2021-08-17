@@ -39,13 +39,14 @@ namespace API.Data
                 .ConfigurationProvider).AsNoTracking(), 
                     postParams.PageNumber, postParams.PageSize);
         }
-        public ICollection<PostDto> GetPostsByTag(int tagId)
+        public async Task<PagedList<PostDto>> GetPostsByTag(int tagId,PostParams postParams)
         {
             var tag = _context.Tags.Where(t => t.Id == tagId).FirstOrDefault();
             var query = _context.Posts.Include(p => p.Poster.Photos).Include(p => p.PostTags).Where(p => p.PostTags.Contains(tag)).AsQueryable();
 
-            return query.ProjectTo<PostDto>(_mapper
-                .ConfigurationProvider).AsNoTracking().ToList();
+            return await PagedList<PostDto>.CreateAsync(query.ProjectTo<PostDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(), 
+                    postParams.PageNumber, postParams.PageSize);
         }
         public async Task<Post> GetPost(int postId){
 
