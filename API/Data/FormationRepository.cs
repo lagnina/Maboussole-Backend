@@ -52,7 +52,7 @@ _context.Formations.Add(formation);        }
             {
                 query = query.Where(p => p.Ville.ToLower().Contains(formationParams.Ville.ToLower())).AsQueryable();
             }
-            if (formationParams.Etablissement == null && formationParams.Etablissement == "")
+            if (formationParams.Etablissement != null && formationParams.Etablissement != "")
 
             {
                 query = query.Where(p => p.Etablissement.ToLower().Contains(formationParams.Etablissement.ToLower())).AsQueryable();
