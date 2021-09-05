@@ -11,14 +11,21 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="CloudinaryDotNet" Version="1.11.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0-preview.8.20414.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.8.20407.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-preview.8.20407.4" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.36.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.9" />
+
+    <PackageReference Include="Microsoft.PowerBi.Api" Version="3.26.0" />
+   
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.1" />
   </ItemGroup>
 
 </Project>

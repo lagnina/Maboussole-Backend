@@ -20,7 +20,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace API
 {
@@ -31,6 +33,7 @@ namespace API
         public Startup(IConfiguration config)
         {
             _config = config;
+            
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,7 +44,9 @@ namespace API
             services.AddCors();
             services.AddIdentityServices(_config);
             services.AddSignalR();
-          
+            services.AddMicrosoftIdentityWebAppAuthentication(_config);
+            var powerBISettings = _config.GetSection("PowerBI").Get<PowerBISettings>();
+            services.AddSingleton(powerBISettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
